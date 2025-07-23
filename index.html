@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Inversiones del Gobierno Nacional en Antioquia (2022-2025)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeInDown 1s;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .main-content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .main-content h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .chart-container {
+            margin-top: 40px;
+            animation: fadeInUp 1s;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Informe de Inversiones del Gobierno Nacional en Antioquia (2022-2025)</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="main-content">
+            <h2>Introducción</h2>
+            <p>Este informe presenta un rastreo sistemático de las principales inversiones realizadas por el Gobierno Nacional de Colombia en el departamento de Antioquia desde el año 2022, apoyado en fuentes oficiales, bases de datos públicas y reportes institucionales.</p>
+            <h2>Tabla de Inversiones Nacionales en Antioquia (2022-2025)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripción de la inversión</th>
+                        <th>Monto estimado (COP)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Plan Nacional de Desarrollo 2022-2026</td>
+                        <td>$47,800,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura de transporte</td>
+                        <td>$23,000,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Salud</td>
+                        <td>$587,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura educativa</td>
+                        <td>$135,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Obras por impuestos</td>
+                        <td>$596,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Inversión Metro Ligero de la Avenida 80, Medellín</td>
+                        <td>$2,590,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Conectividad, vivienda y programas sociales</td>
+                        <td>$6,800,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura vial adicional</td>
+                        <td>$3,600,000,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura educativa nacional</td>
+                        <td>$80,317,000,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="chart-container">
+                <h2>Distribución de Inversiones por Sector</h2>
+                <canvas id="investmentChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Composición de las Inversiones</h2>
+                <canvas id="investmentPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Elaborado por: John Alexander Echeverry Ocampo, Politólogo y Analista de Datos - Equipo UTL Senador León Fredy Muñoz</p>
+    </footer>
+    <script>
+        const investmentData = {
+            labels: ['Transporte', 'Salud', 'Educaci��n', 'Obras por Impuestos', 'Metro', 'Conectividad y otros', 'Infraestructura Vial Adicional'],
+            datasets: [{
+                label: 'Inversión (en billones de COP)',
+                data: [23000, 587, 215.317, 596, 2590, 6800, 3600],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const investmentChart = new Chart(document.getElementById('investmentChart'), {
+            type: 'bar',
+            data: investmentData,
+            options: {
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutBounce'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const investmentPieChart = new Chart(document.getElementById('investmentPieChart'), {
+            type: 'pie',
+            data: investmentData,
+            options: {
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                    duration: 2000
+                }
+            }
+        });
+    </script>
+</body>
+</html>
